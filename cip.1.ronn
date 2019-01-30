@@ -1,0 +1,36 @@
+cip(1) -- convert integer and print
+===================================
+
+## SYNOPSIS
+
+`cip` _time_ _command_
+
+## DESCRIPTION
+
+cip(1) accepts numbers or Unicode characters as input, optionally converts them to base 8, 10, or 16, or into Unicode characters, and prints them.
+
+The input can be either standard input or the command's arguments.
+
+With the -r (range) option, cip generates a range of numbers to print, rather than reading them from the input.
+
+## ARGUMENTS
+
+## EXAMPLES
+
+Print a sequence of octal numbers from 45 (base 8) to 177 (base 8)
+
+`cip -o -r 045 0177`
+
+## BUGS
+
+## AUTHOR
+
+Jay Ts
+(http://jayts.com)
+
+## COPYRIGHT
+
+Copyright 2019 Jay Ts
+
+Released under the GNU Public License, version 3.0 (GPLv3)
+(http://www.gnu.org/licenses/gpl.html)
