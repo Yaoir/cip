@@ -1,25 +1,29 @@
-# Makefile for Unicode utilities
+# Makefile for cip (convert integer and print) command
+
+# change the below to the directory in your PATH where you want cip installed
+BINDIR=/home/jay/.bin/elf
 
 # Release date. For ronn, when making manual page
-RELDATE=2019-01-30
+RELDATE=2019-02-03
 
 cip: cip.go
 	@go build -o cip cip.go
+# install
+	@cp cip $(BINDIR)
 
-cip-man: cip.1.ronn
+# Manual Page
+
+man: cip.1.ronn
 	@ronn --roff --manual="User Commands" --organization="Jay Ts" --date="$(RELDATE)" cip.1.ronn >/dev/null 2>&1
 	@gzip -f cip.1
 	@mv cip.1.gz man1
 	@man -l man1/cip.1.gz
 
+install:
+	@cp cip $(BINDIR)
+
 wc:
 	@wc -l cip.go
 
-utap:
-	@go build -o utap utap.go
-
-upr: upr.go
-	@go build upr.go
-
 backup back bak:
-	@cp cip.1.ronn *.go Makefile README.md TODO .bak
+	@cp -a cip.1.ronn *.go Makefile README.md TODO test .bak
