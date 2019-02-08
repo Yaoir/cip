@@ -26,4 +26,4 @@ wc:
 	@wc -l cip.go
 
 backup back bak:
-	@cp -a cip.1.ronn *.go Makefile README.md TODO test .bak
+	@cp -a cip.1.ronn *.go Makefile Examples.md README.md TODO test .bak
