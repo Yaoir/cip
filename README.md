@@ -1,4 +1,5 @@
 **Note to reader: The proper rendering of this document depends on the software you are using to view it.**
+
 **It should appear correctly on the Atom editor's Markdown Preview.**
 
 ### Motivation

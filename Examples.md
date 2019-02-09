@@ -1,3 +1,7 @@
+**Note to reader: The proper rendering of this document depends on the software you are using to view it.**
+
+**It should appear correctly on the Atom editor's Markdown Preview.**
+
 ### Examples of Using cip
 
 In the code blocks, **$** are bash prompts, and **>** are secondary prompts. All other text in code blocks is command output. For example,
