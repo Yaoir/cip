@@ -73,6 +73,8 @@ And that's just getting started. Consider that:
 * There are many other variation selectors.
 * There are many other kinds of Unicode code points that are invisible, either because they are defined as "non-printing" characters, or they modify how another character appears, or because software typically ignores them.
 
+There are two more examples of "weird Unicode stuff" in [Examples.md](https://github.com/Yaoir/cip/blob/master/Examples.md) in this repository.
+
 ## Introduction to **cip**
 
 **cip** converts integers between numeric bases, and also to and from Unicode characters.
@@ -86,7 +88,7 @@ Applications include:
 
 The manual page is included below.
 
-See the file **Examples.md** in this repository for many examples showing how to use **cip**, including two short tutorials explaining Unicode issues that may be encountered by programmers.
+See [Examples.md](https://github.com/Yaoir/cip/blob/master/Examples.md) for many examples showing how to use **cip**, including two short tutorials explaining Unicode issues that may be encountered by programmers.
 
 ## Compiling and Installing **cip**
 
@@ -111,6 +113,12 @@ $ sudo make install
 ```
 
 ## Manual Page
+
+A copy of the manual page is included here for convenience. To display it better, install it on your system and use the command
+
+```
+$ man cip
+```
 
 ```
 CIP(1)                           User Commands                          CIP(1)
