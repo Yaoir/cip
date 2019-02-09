@@ -1,12 +1,13 @@
 # Makefile for cip (convert integer and print) command
 
-# change the below to the directory in your PATH where you want cip installed
+# set BINDIR to the directory in your PATH where you want cip installed
 BINDIR=/home/jay/.bin/elf
 
+# set MANDIR to where you want the manual page installed
 MANDIR=/usr/share/man/man1
 
 # Release date. For ronn, when making manual page
-RELDATE=2019-02-03
+RELDATE=2019-02-09
 
 cip: cip.go
 	@go build -o cip cip.go
@@ -32,4 +33,4 @@ wc:
 	@wc -l cip.go
 
 backup back bak:
-	@cp -a cip.1.ronn *.go Makefile Examples.md README.md TODO test .bak
+	@cp -a cip.1.ronn *.go Makefile Examples.md README.md TODO .bak
