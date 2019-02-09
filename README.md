@@ -1,4 +1,5 @@
 **Note to reader: The proper rendering of this document depends on the software you are using to view it.**
+**It should appear correctly on the GitHub website or in the Atom editor's Markdown Preview.**
 
 ### Motivation
 
@@ -12,7 +13,7 @@ The Unicode code point
 ❤	U+2764	HEAVY BLACK HEART
 ```
 
-was added before color emoji were added to Unicode. So originally it was just a black heart. Nowadays in Unicode, variation selectors U+FE0E and U+FE0F are used to indicate whether to show a character as a regular text character or as emoji.
+was added before color emoji were added to Unicode. So originally it was just a black heart. Nowadays in Unicode, there are color emojis, and variation selectors U+FE0E and U+FE0F are used to indicate whether to show a character as a regular text character or as emoji.
 
 U+2764 followed by U+FE0F (Variation Selector 16) indicates that the heart should be displayed as emoji, and most likely appears as a red-colored heart. When people cut and paste a red heart from a web page or other document, they are often pasting the two code points into another document.
 
@@ -47,7 +48,7 @@ U+000A
 
 You can see that in this case, the heart was specified as U+2764 HEAVY BLACK HEART, followed by U+FE0F to specify emoji style rendering.
 
-You can also use cip to output specific Unicode characters. Here is how to create the heart.txt:
+You can also use cip to output specific Unicode characters. Here is how to create **heart.txt**:
 
 ```
 $ cip -c 0x2764 0xfe0f >heart.txt
@@ -81,7 +82,7 @@ There are two more examples of "weird Unicode stuff" in [Examples.md](https://gi
 
 Applications include:
 
-* Numeric base conversion: from base 2-36 to octal, decimal, or hexidecimal
+* Numeric base conversion: from base 2-36 to octal, decimal, or hexidecimal, including U+*n* Unicode code point format.
 * Sequence generation
 * Unicode explorer: convert Unicode characters to or from octal, decimal, or hex Unicode code point.
 * Analysis of Unicode strings
@@ -265,8 +266,9 @@ EXAMPLES
        cip -c -r 0x3b1 0x3c9
 
 BUGS
-       This is an early release, so there may be  some.  Report  bugs  to  the
-       author.
+       There is at least one bug.
+       This is the very first public release of the program, so please don't expect it to be perfect.
+       Report bugs to the author.
 
 SEE ALSO
        od(1), hd(1), seq(1), numconv(1)
