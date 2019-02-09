@@ -3,6 +3,8 @@
 # change the below to the directory in your PATH where you want cip installed
 BINDIR=/home/jay/.bin/elf
 
+MANDIR=/usr/share/man/man1
+
 # Release date. For ronn, when making manual page
 RELDATE=2019-02-03
 
@@ -19,8 +21,12 @@ man: cip.1.ronn
 	@mv cip.1.gz man1
 	@man -l man1/cip.1.gz
 
+showman:
+	@man -l man1/cip.1.gz
+
 install:
 	@cp cip $(BINDIR)
+	@cp man1/cip.1.gz $(MANDIR)
 
 wc:
 	@wc -l cip.go

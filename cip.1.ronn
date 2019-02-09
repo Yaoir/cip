@@ -13,9 +13,13 @@ cip(1) -- convert integer and print
 
 cip(1) accepts numbers or Unicode characters as input, and prints them as base 8, 10, or 16 numbers or as Unicode characters.
 
-The input can be either standard input or the command's arguments.
+The input can be either standard input or the command's arguments. If there are no non-option arguments, input is read from the standard input as space-separated words. The words must be in a format *cip* understands as numbers. By default, numbers can be integers in decimal (base 10) notation, octal numbers with a leading **0** (zero), or hexidecimal numbers with a leading **0x**. The numeric base of the number(s) can be set using the **-ib=_base_** option.
 
-With the `-r` (range) option, `cip` generates a range of numbers to print, rather than reading them from the input.
+When arguments are provided (without the **-r** flag, which is explained below), cip concatenates the arguments with space characters as separators and treats the result the same way as would an input file.
+
+The exception to both of the above is when the **-ic** flag is provided. In that case, the input (either from standard input or concatenated arguments) is a string of characters with no separations between them. **cip** converts the Unicode characters into their code points, which are integers.
+
+With the **-r** (range) option, **cip** generates a range of numbers to print, rather than reading numbers from the input.
 
 ## OPTIONS
 
@@ -34,7 +38,7 @@ Only one of the following may be supplied:
 
 `-H` (or `-X`) ` ` ` ` Numeric output in hexidecimal (base 16), using uppercase letters _A_-_F_ to represent digits 10-15.
 
-`-U` ` ` ` ` Output in Unicode standard form for code points: U+_dddd_, where the _d_s are hexidecimal digits, using uppercase A-F.
+`-U` ` ` ` ` Output in Unicode standard form for code points: U+**DDDD**, where the **D**s are hexidecimal digits, using uppercase A-F.
 
 `-c` ` ` ` ` Unicode character output.
 
@@ -102,7 +106,8 @@ Print the lowercase Greek alphabet
 
 ## BUGS
 
-Input in the form U+_dddd_ (for Unicode code points) is not supported.
+This is an early release, so there may be some. Report bugs to the author
+.
 
 ## SEE ALSO
 
