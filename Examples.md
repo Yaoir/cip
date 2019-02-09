@@ -242,7 +242,7 @@ The above is the same as
 $ cip -ic -c -r 0 9
 ```
 
-This was a very simple case, but the point is that you can do this with arbitrary Unicode characters, which may not be available from your keyboard.
+This was a very simple case, but the point is that you can do this with arbitrary Unicode characters that may not be available from your keyboard.
 
 #### Now with Greek
 
@@ -514,6 +514,7 @@ To start off, show what's in the file.
 $ cat prob.txt
 açaí
 ```
+[Advisory: That should have displayed as a, c-cedilla, a, i-acute. Unfortunately, not all web browsers handle it correctly! If it doesn't appear correctly there, it probably won't later in this document, either.]
 
 Well that's just a Portuguese word. Everything is international nowadays and it's not just about blueberries anymore.
 
