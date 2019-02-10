@@ -23,13 +23,12 @@ func error_exit(msg string, exit_val int) {
 
 func main() {
 	var n1, n2, i uint64
-	var step uint64 = 1	// step for -r option
+	var step uint64 = 1	// step for -r option.
 	var err error
 	// options:
 	var help bool		// print help message
 	var printbin bool	// output octal numbers
 	var printoct bool	// output octal numbers
-	var printdec bool	// output decimal numbers (default)
 	var printhex bool	// output hex numbers
 	var printhexc bool	// output hex numbers
 	var printuni bool	// output U+00xx Unicode code points
@@ -45,7 +44,6 @@ func main() {
 
 	flag.BoolVar(&help,"help",false,"Print this help message.")
 	flag.BoolVar(&printbin,"b",false,"Output binary numbers")
-	flag.BoolVar(&printdec,"d",false,"Output decimal numbers (default)")
 	flag.BoolVar(&printoct,"o",false,"Output octal numbers")
 	flag.BoolVar(&printhex,"h",false,"Output hexidecimal numbers (using a-f)")
 	flag.BoolVar(&printhexc,"H",false,"Output hexidecimal numbers (using A-F)")
@@ -54,7 +52,7 @@ func main() {
 	flag.BoolVar(&printuni,"U",false,"Output numbers in Unicode spec (for example, U+006A)")
 	flag.BoolVar(&printchar,"c",false,"Output Unicode characters")
 	flag.BoolVar(&sequence,"r",false,"Print range of numbers")
-	flag.IntVar(&inputbase,"ib",0,"Input `base`: Use 0, 8, 10, or 16 for numbers, and 1 for character input.")
+	flag.IntVar(&inputbase,"ib",0,"Input `base`: Use 0, 8, 10, or 16")
 	flag.BoolVar(&inputchar,"ic",false,"Unicode character input.")
 	flag.BoolVar(&constwidth,"w",false,"Constant width output (fitting widest), padded with leading 0s")
 	flag.IntVar(&width,"width",0,"Constant `width` output, padded with leading 0s")
@@ -79,20 +77,17 @@ func main() {
 		os.Exit(0)
 	}
 
-	// Check that ONLY ONE of -h/x, -c, -b, -o, -d are set
+	// Check that ONLY ONE of -h/x, -c, -b, -o are set
 	{
 		var num int = 0
 		if printhexc { num++ }
 		if printhex  { num++ }
-		if printdec  { num++ }
 		if printoct  { num++ }
 		if printbin  { num++ }
 		if printuni  { num++ }
 		if printchar { num++ }
 
-		if num > 1 { error_exit("too many output bases specified - use only one of -b, -o, -d, -h, -H, -x, -X, -c",2) }
-		// in case someone used '-d=false' option:
-//		if num < 1 { error_exit("one of -b, -o, -d, -h, -H, -x, -X, -c must be specified",2) }
+		if num > 1 { error_exit("too many output bases specified - use only one of -b, -o, -h, -H, -x, -X, -c",2) }
 	}
 
 	// Check that ONLY ONE of -w and -width are set
@@ -136,14 +131,11 @@ func main() {
 		// -r min max step
 
 		if len(flag.Args()) == 3 {
-			if inputchar || inputbase == 1 {
+			if inputchar {
 				if len(([]rune)(flag.Arg(0))) > 1 { error_exit("range lower limit contains more than one character",2) }
 				n1 = uint64(([]rune)(flag.Arg(0))[0])
 				if len(([]rune)(flag.Arg(1))) > 1 { error_exit("range upper limit contains more than one character",2) }
 				n2 = uint64(([]rune)(flag.Arg(1))[0])
-// TODO: step should be integer, not character
-//				if len(flag.Arg(2)) > 1 { error_exit("range step contains more than one character",2) }
-//				step = uint64(flag.Arg(2)[0])
 				step, err = strconv.ParseUint(flag.Arg(2),inputbase,64)
 				if err != nil { error_exit("range step is not a number",2) }
 			} else {
@@ -160,7 +152,7 @@ func main() {
 		// step defaults to 1
 
 		if len(flag.Args()) == 2 {
-			if inputchar || inputbase == 1 {
+			if inputchar {
 				if len(([]rune)(flag.Arg(0))) > 1 { error_exit("range upper limit contains more than one character",2) }
 				n1 = uint64(([]rune)(flag.Arg(0))[0])
 				if len(([]rune)(flag.Arg(1))) > 1 { error_exit("range upper limit contains more than one character",2) }
@@ -178,7 +170,7 @@ func main() {
 
 		if len(flag.Args()) == 1 {
 			n1 = 1
-			if inputchar || inputbase == 1 {
+			if inputchar {
 				if len(([]rune)(flag.Arg(0))) > 1 { error_exit("range upper limit contains more than one character",2) }
 				n2 = uint64(([]rune)(flag.Arg(0))[0])
 			} else {
@@ -211,13 +203,12 @@ func main() {
 		if n1 > n2 {
 			// counting downwards from n1 to n2
 			downwards = true
-			step = -step
 		}
 
 		// Print Output
 
-		for i = n1; ( ! downwards && i <= n2) || (downwards && i >= n2); i += step {
-		//
+		i = n1
+		for {
 			if printhex {
 				// print as hexidecimal number using a-f
 				fmt.Fprintf(os.Stdout,"%s%s%0[3]*x",sep,prefix,width,i)
@@ -241,6 +232,17 @@ func main() {
 				fmt.Fprintf(os.Stdout,"%s%s%0[3]*d",sep,prefix,width,i)
 			}
 			sep = separator
+
+			if ! downwards {
+				i += step
+				if i > n2 { break }
+			}
+			if downwards {
+				// i, n2, and step are UNSIGNED, so we can't subtract anything
+				// from n2 and then compare to see if it's less than 0.
+				if i < n2 + step { break }
+				i -= step
+			}
 		}
 		fmt.Fprintf(os.Stdout,"\n")
 	}
@@ -259,19 +261,19 @@ func main() {
 			scanner = bufio.NewScanner(os.Stdin)
 		} else {
 			// read input from arguments
-			if inputchar || inputbase == 1 { sep = "" } else { sep = " " }
+			if inputchar { sep = "" } else { sep = " " }
 			s := strings.Join(flag.Args(),sep)
 			scanner = bufio.NewScanner(strings.NewReader(s))
 		}
 
-		// input runes if inputchar is true or inputbase is 1, otherwise words to convert to integers
-		if inputchar || inputbase == 1 { scanner.Split(bufio.ScanRunes) } else { scanner.Split(bufio.ScanWords) }
+		// input runes if inputchar is true, otherwise words to convert to integers
+		if inputchar { scanner.Split(bufio.ScanRunes) } else { scanner.Split(bufio.ScanWords) }
 
 		sep = ""	// Don't print a separator string before the first number
 
 		for scanner.Scan() {
 		//
-			if inputchar || inputbase == 1 {
+			if inputchar {
 				// Get the rune into an integer
 				n1 = uint64(([]rune)(scanner.Text())[0])
 			} else {
@@ -324,6 +326,6 @@ func main() {
 			sep = separator
 		}
 		// print a newline when outputting numbers or reading from the command's arguments
-		if ! printchar || (printchar && len(flag.Args()) != 0) { fmt.Fprintf(os.Stdout,"\n") }
+		if ! printchar || (printchar && len(flag.Args()) > 0) { fmt.Fprintf(os.Stdout,"\n") }
 	}
 }

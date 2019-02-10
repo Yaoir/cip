@@ -27,13 +27,11 @@ Options may be specified in any way supported by the **flags** package in the Go
 
 ### Output base or method
 
-Only one of the following may be supplied:
+By default, **cip** outputs decimal (base 10) integers. To output in other formats or numeric bases, only one of the following may be supplied:
 
 `-b` `	` ` ` Numeric output in binary (base 2).
 
 `-o` ` ` ` ` Numeric output in octal (base 8).
-
-`-d` ` ` ` ` Numeric output in decimal (base 10).
 
 `-h` (or `-x`) ` ` ` ` Numeric output in hexidecimal (base 16), using lowercase letters _a_-_f_ to represent digits 10-15.
 
@@ -95,7 +93,7 @@ or
 
 or
 
-`cip -d -ib=16 ED`
+`cip -ib=16 ED`
 
 Print a sequence of octal numbers from 45 (base 8) to 177 (base 8)
 

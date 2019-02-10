@@ -1,6 +1,6 @@
 **Note to reader: The proper rendering of this document depends on the software you are using to view it.**
 
-**It should appear correctly on the Atom editor's Markdown Preview.**
+**It should appear correctly in the Atom editor's Markdown Preview.**
 
 ### Motivation
 
@@ -175,8 +175,6 @@ OPTIONS
 
        -o   Numeric output in octal (base 8).
 
-       -d   Numeric output in decimal (base 10).
-
        -h (or -x)   Numeric output in hexidecimal (base 16),  using  lowercase
        letters a-f to represent digits 10-15.
 
@@ -256,7 +254,7 @@ EXAMPLES
 
        or
 
-       cip -d -ib=16 ED
+       cip -ib=16 ED
 
        Print a sequence of octal numbers from 45 (base 8) to 177 (base 8)
 

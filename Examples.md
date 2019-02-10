@@ -1,6 +1,6 @@
 **Note to reader: The proper rendering of this document depends on the software you are using to view it.**
 
-**It should appear correctly on the Atom editor's Markdown Preview.**
+**It should appear correctly in the Atom editor's Markdown Preview.**
 
 ### Examples of Using cip
 
@@ -518,7 +518,7 @@ To start off, show what's in the file.
 $ cat prob.txt
 açaí
 ```
-[Advisory: That should have displayed as a, c-cedilla, a, i-acute. Unfortunately, not all web browsers handle it correctly! If it doesn't appear correctly there, it probably won't later in this document, either.]
+[Advisory: That should have displayed as four characters: a, c-cedilla, a, i-acute. Unfortunately, not all web browsers handle it correctly! If it doesn't appear correctly this time, it probably won't later in this document, either.]
 
 Well that's just a Portuguese word. Everything is international nowadays and it's not just about blueberries anymore.
 
