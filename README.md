@@ -188,7 +188,9 @@ OPTIONS
        -c   Unicode character output.
 
    Input Base
-       Only one of the following may be supplied:
+       By default, cip interprets input numbers as decimal (base 10) integers.
+       To  accept  input  in other bases or as Unicode characters, only one of
+       the following may be supplied:
 
        -ib base   Use base as the numeric base of the input. base can  be  any
        integer  from  2 to 36. The letters A-Z, either uppercase or lowercase,
