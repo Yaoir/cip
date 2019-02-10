@@ -51,6 +51,8 @@ By default, **cip** interprets input numbers as decimal (base 10) integers. To a
 
 ### Output Formatting
 
+`-n` ` ` ` ` When using -c to output Unicode characters, don't print a newline at the end of the line.
+
 `-p` _string_ ` ` ` ` Use _string_ as a prefix to apply to every number in the output.
 
 `-s` _string_ ` ` ` ` Use _string_ to separate numbers in the output. _string_ may include \t, \n and other characters recognized by strconv.Unquote() in the Go standard library.
@@ -103,9 +105,13 @@ Print the lowercase Greek alphabet
 
 `cip -c -r 0x3b1 0x3c9`
 
-## BUGS
+## CAVEAT UTILITOR
 
-This is an early release, so there may be some. Report bugs to the author.
+Omitting the **<** for standard input redirection.
+
+`cip -ic -c input`
+
+prints "`input`", not the contents of a file named `input`.
 
 ## SEE ALSO
 
@@ -123,3 +129,4 @@ od(1), hd(1), seq(1), numconv(1)
 
 Jay Ts
 (http://jayts.com)
+

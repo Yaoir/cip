@@ -621,3 +621,4 @@ Here are some links to help you get started:
 [Wikipedia - Unicode Equivalence](https://en.wikipedia.org/wiki/Unicode_equivalence#Normalization)
 
 [Unicode Standard Annex #15 - Unicode Normalization Forms](https://unicode.org/reports/tr15/)
+

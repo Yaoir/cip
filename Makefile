@@ -7,12 +7,10 @@ BINDIR=/home/jay/.bin/elf
 MANDIR=/usr/share/man/man1
 
 # Release date. For ronn, when making manual page
-RELDATE=2019-02-09
+RELDATE=2019-02-10
 
 cip: cip.go
 	@go build -o cip cip.go
-# install
-#	@cp cip $(BINDIR)
 
 # Manual Page
 
@@ -27,6 +25,8 @@ showman:
 
 install:
 	@cp cip $(BINDIR)
+
+installman:
 	@cp man1/cip.1.gz $(MANDIR)
 
 wc:

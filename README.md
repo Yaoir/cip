@@ -108,10 +108,16 @@ $ make
 
 To install the manual page, copy the file **man1/cip.1.gz** to the directory where your manual pages are located. On Linux, this is typically **/usr/share/man/man1**.
 
-To install both the **cip** program and its manual page, edit **Makefile** to set BINDIR and MANDIR appropriately, then run
+To install **cip** program using **make**, edit **Makefile** to set BINDIR appropriately, then run
 
 ```
-$ sudo make install
+$ make install
+```
+
+To install the manual page using **make**, edit **Makefile** to set MANDIR appropriately, then run
+
+```
+$ sudo make installman
 ```
 
 ## Manual Page
@@ -289,3 +295,4 @@ AUTHOR
 
 Jay Ts                           February 2019                          CIP(1)
 ```
+
