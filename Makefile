@@ -12,7 +12,7 @@ RELDATE=2019-02-09
 cip: cip.go
 	@go build -o cip cip.go
 # install
-	@cp cip $(BINDIR)
+#	@cp cip $(BINDIR)
 
 # Manual Page
 
