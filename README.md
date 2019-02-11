@@ -152,27 +152,45 @@ SYNOPSIS
 
 DESCRIPTION
        cip  accepts numbers or Unicode characters as input, and prints them as
-       base 8, 10, or 16 numbers or as Unicode characters.
+       base 2, 8, 10, or 16 numbers or as Unicode UTF-8 characters.
 
-       The input can be either standard input or the command´s  arguments.  If
-       there  are  no  non-option  arguments,  input is read from the standard
-       input as whitespace-separated words. The words must be in a format  cip
-       understands  as numbers. By default, numbers can be integers in decimal
-       (base 10) notation, octal numbers with a leading 0 (zero), or hexideci‐
-       mal numbers with a leading 0x. The numeric base of the number(s) can be
-       set using the -ib=base option. (More details are in  the  documentation
-       for strconv.ParseUint() function in the Go standard library.)
+       When cip is not being used to generate a sequence (with the -r option),
+       the  input can be either from the standard input or the command´s argu‐
+       ments.
 
-       When  arguments  are  provided (without the -r flag, which is explained
-       below), cip concatenates the arguments with space  characters  (Unicode
-       U+0020)  as  separators  and treats the result the same way as would an
+       The input is read as whitespace-separated words. The words must be in a
+       format  cip understands as numbers. By default, numbers can be integers
+       in decimal (base 10) notation, octal (base 8) numbers with a leading  0
+       (zero),  hexidecimal  (base  16)  numbers with a leading 0x, or Unicode
+       code points (a prefix of U+ followed by hexidecimal digits). A  mix  of
+       numeric bases may be present.
+
+       Alternatively,  the  numeric  base of the number(s) in the input can be
+       set using the -ib=base option, in which case prefixes are not  allowed,
+       and  all of the numbers must have the specified numeric base, which can
+       be from 2 to 36.
+
+       cip can output numbers only in bases 2, 8, 10, or  16.  The  -o  option
+       specifies  base  8  (octal),  and  numbers are printed with a leading 0
+       (zero). Hexidecimal output can be specified using any of -x, -X, -h, or
+       -H,  and  the numbers are printed with a leading 0x prefix. Using -X or
+       -H results in the numbers being  printed  using  capital  A-F  letters,
+       rather than lowercase.
+
+       To  avoid  printing of prefixes, the output base can be specified using
+       either the -ob=8 or -ob=16 option. Either of -X or -H may be  added  to
+       -ob=16 to specify that the numbers should be printed with uppercase A-F
+       digits.
+
+       When arguments are provided (without the -r flag,  which  is  explained
+       below),  cip  concatenates the arguments with space characters (Unicode
+       U+0020) as separators and treats the result the same way as it would an
        input file.
 
-       The exception to both of the above is when the -ic  flag  is  provided,
-       the  input  (either from standard input or concatenated arguments) is a
-       string of characters with no separators between them.  Internally,  cip
-       converts the Unicode characters into their code points, which are inte‐
-       gers.
+       The  exception  to  both of the above is when the -ic flag is provided,
+       the input (either from standard input or concatenated arguments)  is  a
+       string  of  characters with no separators between them. Internally, cip
+       converts the Unicode characters into their (integer) code points.
 
        With the -r (range) option, cip generates a range of numbers to  print,
        rather than reading numbers from the input.
@@ -198,21 +216,27 @@ OPTIONS
        -U   Output in Unicode standard form for code points: U+DDDD, where the
        Ds are hexidecimal digits, using uppercase A-F.
 
+       -ob _base_   Set the numeric base for output to base. Only values of 2,
+       8, 10, and 16 are allowed.
+
        -c   Unicode character output.
 
    Input Base
        By default, cip interprets input numbers as decimal (base 10) integers.
-       To  accept  input  in other bases or as Unicode characters, only one of
+       To accept input in other bases or as Unicode characters,  only  one  of
        the following may be supplied:
 
-       -ib base   Use base as the numeric base of the input. base can  be  any
-       integer  from  2 to 36. The letters A-Z, either uppercase or lowercase,
+       -ib  base    Use base as the numeric base of the input. base can be any
+       integer from 2 to 36. The letters A-Z, either uppercase  or  lowercase,
        are used to represent digits greater than 9.
 
-       -ic   Accept Unicode characters as input. The characters are  converted
+       -ic    Accept Unicode characters as input. The characters are converted
        to their Unicode code points.
 
    Output Formatting
+       -n   When using -c to output Unicode characters, don´t print a  newline
+       at the end of the line.
+
        -p string   Use string as a prefix to apply to every number in the out‐
        put.
 
@@ -223,8 +247,8 @@ OPTIONS
        -w   Constant-width output. When generating a sequence, pad the shorter
        numbers with 0s to make all of the numbers equal width.
 
-       -width  number    Pad  all  numbers  in the output with 0s to make them
-       equal in width to number characters.
+       -width  number   Pad all numbers in the output with 0s to make them (at
+       least) equal in width to number characters.
 
        Only one of -w and -width may be supplied. The  -w  option  works  only
        with the -r option.
@@ -272,22 +296,29 @@ EXAMPLES
 
        cip -ib=16 ED
 
-       Print a sequence of octal numbers from 45 (base 8) to 177 (base 8)
+       Print a sequence of octal numbers from 90 (base 10) to 177 (base 8)
 
-       cip -o -r 045 0177
+       cip -o -r 90 0177
+
+       or
+
+       cip -ob=8 -r 90 0177
 
        Print the lowercase Greek alphabet
 
        cip -c -r 0x3b1 0x3c9
 
-BUGS
-       This  is  an  early  release,  so there may be some. Report bugs to the
-       author.
+CAVEAT UTILITOR
+       Omitting the < for standard input redirection.
+
+       cip -ic -c input
+
+       prints "input", not the contents of a file named input.
 
 SEE ALSO
        od(1), hd(1), seq(1), numconv(1)
 
-       Option Parsing  https://golang.org/pkg/flag/#hdr-Command_line_flag_syntax
+       Option  Parsing https://golang.org/pkg/flag/#hdr-Command_line_flag_syntax
 
        Integer Parsing https://golang.org/pkg/strconv/#ParseInt
 
@@ -302,4 +333,3 @@ AUTHOR
 
 Jay Ts                           February 2019                          CIP(1)
 ```
-
