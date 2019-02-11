@@ -38,8 +38,15 @@ $ cip -b 0x8080
 Convert 256 (decimal) to hex, and print with 0x prefix.
 
 ```
-$ cip -x -p=0x 256
+$ cip -x 256
 0x100
+```
+
+Or print it without the 0x prefix.
+
+```
+$ cip -ob=16 256
+100
 ```
 
 Print 3 shifted left 5 times in binary.
@@ -57,8 +64,8 @@ $ for opt in -b -o -h
 > 	cip $opt 127603
 > done
 11111001001110011
-371163
-1f273
+0371163
+0x1f273
 ```
 
 Convert Unix octal permission bits 644, 600, 755, and 700 to binary.
@@ -205,7 +212,7 @@ U+005A
 or
 
 ```
-$ cip -width=4 -ic -X -p=U+ -r A Z
+$ cip -width=4 -ic -ob=16 -H -p=U+ -r A Z
 ```
 
 Character input and output (acts like **cat** command, but for standard input only).
@@ -350,7 +357,7 @@ They all agree that the file is 46 bytes, and 46 characters, long.
 Convert the Unicode characters to hex integers and save the output in another file.
 
 ```
-$ cip -ic -x -p=0x <file.txt >hex.txt
+$ cip -ic -x <file.txt >hex.txt
 ```
 
 Use your favorite text editor to edit the file.
@@ -375,8 +382,7 @@ U+202D  LEFT-TO-RIGHT OVERRIDE
 U+202E  RIGHT-TO-LEFT OVERRIDE
 ```
 
-To add them, change the format from **U+**dddd to **0x**dddd
-to get a result like this:
+To add them, change the format from **U+**dddd to **0x**dddd to get a result like this:
 
 ```
 $ cat hex.txt
@@ -553,24 +559,24 @@ Let's use **cip** to dump the Unicode code points in hexidecimal.
 
 ```
 $ cip -ic -x <prob.txt
-61
-63
-327
-61
-69
-301
-a
+0x61
+0x63
+0x327
+0x61
+0x69
+0x301
+0xa
 $ cip -ic -x <mine.txt
-61
-e7
-61
-ed
-a
+0x61
+0xe7
+0x61
+0xed
+0xa
 ```
 
 Compare them. They have different code points.
 
-In **mine.txt**, **e7** and **ed** (U+00E7 and U+00ED) are outside the ASCII range, which goes only to 127 (0x7f in hex).
+In **mine.txt**, **0xe7** and **0xed** (U+00E7 and U+00ED) are outside the ASCII range, which goes only to 127 (0x7f in hex).
 
 Show code points U+00E7 and U+00ED from **mine.txt**.
 
@@ -584,7 +590,7 @@ So those are the ç and í characters.
 Show code points U+0063 and U+0069 from **prob.txt**.
 
 ```
-$ cip -c 0x63 0x69
+$ cip -c U+0063 U+0069
 ci
 ```
 
@@ -593,7 +599,7 @@ Those are simply plain **c** and **i** characters, with no diacritical marks.
 What happens when we place U+0327 after the **c** and U+0301 after the **i**?
 
 ```
-$ cip -c 0x63 0x327 0x69 0x301
+$ cip -c U+0063 U+0327 U+0069 U+0301
 çí
 ```
 
@@ -604,9 +610,9 @@ Do a web search on U+0327 and U+0301, and you will learn that they are _combinin
 Here are two ways to encode the word **açaí**:
 
 ```
-$ cip -c 0x61 0x63 0x327 0x61 0x69 0x301
+$ cip -c U+0061 U+0063 U+0327 U+0061 U+0069 U+0301
 açaí
-$ cip -c 0x61 0xe7 0x61 0xed
+$ cip -c U+0061 U+00e7 U+0061 U+00ed
 açaí
 ```
 

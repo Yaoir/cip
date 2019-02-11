@@ -62,6 +62,13 @@ $ cip -c 0x2764 0xfe0f
 ❤️
 ```
 
+You may also use Unicode code point notation.
+
+```
+$ cip -c U+2764 U+fe0f
+❤️
+```
+
 #### Further Reading
 
 Here is a page that shows variation selectors used with emoji:
